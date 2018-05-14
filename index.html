@@ -1,59 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-	<meta name="author=" content="tailofmoon">
-	<title>Modern 3D Launcher</title>
-	<script src="./js/hammer.min.js"></script>
-	<link href="./css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="author=" content="tailofmoon">
+    <title>Modern 3D Launcher</title>
+    <script src="./js/hammer.min.js"></script>
+    <link href="./css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<header>
-		<h1>Modern 3D Launcher</h1>
-	</header>
-	<div class="container">
-		<div class="wrapper">
-			<div class="page">
-				<h1>page1</h1>
-				<ul class="icons">
-					<li><a href="https://youtube.co.kr"><i class="fa fa-youtube fa-3x"></i></a></li>
-					<li><a href="https://www.google.co.kr/maps"><i class="fa fa-map-marker fa-3x"></i></a></li>
-					<li><a href="https://facebook.com"><i class="fa fa-facebook-square fa-3x"></i></a></li>
-					<li><a href="https://www.google.co.kr"><i class="fa fa-google fa-3x"></i></a></li>
-				</ul>
-				<ul class="label">
-					<li><a href="#">youtube</a></li>
-					<li><a href="#">map</a></li>
-					<li><a href="#">facebook</a></li>
-					<li><a href="#">google</a></li>
-				</ul>
-			</div>
-			<div class="page">
-				<h1>page2</h1>
-				<ul class="icons">
-					<li><a href="#"><i class="fa fa-home fa-3x"></i></a></li>
-					<li><a href="#"><i class="fa fa-cog fa-3x"></i></a></li>
-					<li><a href="#"><i class="fa fa-camera-retro fa-3x"></i></a></li>
-				</ul>				
-			</div>
-			<div class="page">
-				<h1>page3</h1>
-			</div>
-			<div class="page">
-				<h1>page4</h1>
-				<ul class="icons">
-					<li><a href="#"><i class="fa fa-home fa-3x"></i></a></li>
-					<li><a href="#"><i class="fa fa-cog fa-3x"></i></a></li>
-					<li><a href="#"><i class="fa fa-camera-retro fa-3x"></i></a></li>
-				</ul>				
-			</div>
-		</div>
-	</div>
-	<ul id=indicator>
-	</ul>
+<header>
+    <span id="subject">Modern 3D Launcher </span><!-- panel with buttons -->
+    <div class="panel">
+        <a href="#addForm" id="addBtn">add</a>
+    </div>
+    <!--<span id="addBtn"><i class="fa fa-plus fa-2x"></i></span>-->
+</header>
+<div class="container">
+    <div class="wrapper">
+        <div class="page">
+            <h1>page<span class="pageNum"></span></h1>
+            <ul class="icons">
+                <li>
+                    <a href="https://www.google.co.kr">
+                        <i class="fa fa-google fa-3x"></i>
+                    </a>
+                    <span>google</span>
+                </li>
+                <li>
+                    <a href="https://youtube.co.kr">
+                        <i class="fa fa-youtube fa-3x"></i>
+                    </a>
+                    <span>youtube</span>
+                </li>
+                <li>
+                    <a href="https://www.google.co.kr/maps">
+                        <i class="fa fa-map-marker fa-3x"></i>
+                    </a>
+                    <span>map</span>
+                </li>
+                <li>
+                    <a href="https://facebook.com">
+                        <i class="fa fa-facebook-square fa-3x"></i>
+                    </a>
+                    <span>facebook</span>
+                </li>
+            </ul>
+        </div>
+        <div class="page">
+            <h1>page<span class="pageNum"></span></h1>
+            <ul class="icons">
+                <li>
+                    <a href="https://www.google.co.kr">
+                        <i class="fa fa-google fa-3x"></i>
+                    </a>
+                    <span>google</span>
+                </li>
+                <li>
+                    <a href="https://www.google.co.kr/maps">
+                        <i class="fa fa-map-marker fa-3x"></i>
+                    </a>
+                    <span>map</span>
+                </li>
+            </ul>
+        </div>
+        <div class="page">
+            <h1>page<span class="pageNum"></span></h1>
+            <ul class="icons">
+                <li>
+                    <a href="https://youtube.co.kr">
+                        <i class="fa fa-youtube fa-3x"></i>
+                    </a>
+                    <span>youtube</span>
+                </li>
+            </ul>
+        </div>
+        <div class="page">
+            <h1>page<span class="pageNum"></span></h1>
+            <ul class="icons">
+                <li>
+                    <a href="https://www.google.co.kr">
+                        <i class="fa fa-google fa-3x"></i>
+                    </a>
+                    <span>google</span>
+                </li>
+                <li>
+                    <a href="https://youtube.co.kr">
+                        <i class="fa fa-youtube fa-3x"></i>
+                    </a>
+                    <span>youtube</span>
+                </li>
+                <li>
+                    <a href="https://www.google.co.kr/maps">
+                        <i class="fa fa-map-marker fa-3x"></i>
+                    </a>
+                    <span>map</span>
+                </li>
+                <li>
+                    <a href="https://facebook.com">
+                        <i class="fa fa-facebook-square fa-3x"></i>
+                    </a>
+                    <span>facebook</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<ul id=indicator>
+</ul>
 
-	<script src="js/main.js"></script>
+
+<!-- popup form #1 -->
+<a href="#x" class="overlay" id="addForm"></a>
+<div class="popup">
+    <h2>Please enter URL to add</h2>
+    <p>로그인시 계정에 저장 가능합니다.</p>
+    <form id="myForm" >
+    <div>
+        <label for="url">URL</label>
+        <input type="text" id="url" required />
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" required maxlength="8" />
+    </div>
+    <!--<input type="button" value="save" />-->
+    <button type="submit"  id=save ><i class="fa fa-save fa-2x"></i></button>
+    </form>
+
+
+    <a class="close" href="#close"></a>
+</div>
+<script src="js/main.js"></script>
 </body>
 </html>
