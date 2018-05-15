@@ -5,7 +5,7 @@ var wrapper = document.querySelector('.wrapper'),
     indicator_li = indicator.querySelectorAll('li'),
     addbtn = document.getElementById('save'),
     myForm = document.getElementById('myForm'),
-close = document.querySelector('.close');
+    close = document.querySelector('.close');
 
 
 var yDeg = 0,
@@ -71,63 +71,70 @@ for (var i = 0; i < indicator_li.length; i++) {
         change_page(indicator_num);
     });
 }
-// addbtn.addEventListener('click' ,function(){
-myForm.onsubmit = function () {
-    // var address = prompt('추가할 url 을 입력하세요');
-    // var name = prompt
-    var url = document.querySelector('#url').value,
-        name = document.querySelector('#name').value;
 
-    console.log(url);
-    console.log(indicator_num);
-    var addLi = document.createElement('li');
-    var addAnchor = document.createElement('a');
-    var addImg = document.createElement('img');
-    var addSpan = document.createElement('span');
+const getElements =()=>{
+    const _url = document.querySelector('#url');
+    const _name = document.querySelector('#name');
+
+    return {
+        url : _url.value,
+        name : _name.value,
+        clearInputElement : ()=>{
+            _url.value = '';
+            _name.value = '';
+        }
+    }
+};
+
+const addBookmark = (e) => {
+    e.preventDefault();
+
+    // let url = document.querySelector('#url').value,
+    //     name = document.querySelector('#name').value;
+
+    // var addLi = document.createElement('li');
+    // var addAnchor = document.createElement('a');
+    // var addImg = document.createElement('img');
+    // var addSpan = document.createElement('span');
+
     if (typeof String.prototype.startsWith != 'function') {
         String.prototype.startsWith = function (str) {
-            return this.slice(0, str.length) == str;
+            return this.toLowerCase().slice(0, str.length) == str;
         };
     }
-    var textHttp = 'http://'
-    if (url.startsWith('http') || url.startsWith('HTTP')) {
-        addAnchor.setAttribute('href', url);
-        console.log('여기');
+    if (!url.startsWith('http')) {
+        url = 'http://' + url;
     }
-    else {
-        url = textHttp.concat(url);
-        addAnchor.setAttribute('href', url);
+    addAnchor.setAttribute('href', url);
 
-    }
-    console.log(url);
+    var defaultFaviconPath = url + "/favicon.ico";
+    var faviconPathWhenError = "http://grabicon.com/" + url;
 
-    // var getIcon = "https://www.google.com/s2/favicons?domain_url=";
-    var getIcon = "http://grabicon.com/"+url;
-    var defaultFavicon = url+"/favicon.ico";
-    var src = "this.src='";
-    var src2 = "'";
+    // addImg.setAttribute('src', defaultFaviconPath);
+    // addImg.setAttribute('onError', `this.onerror=null;this.src='${faviconPathWhenError}'`);
+    //
+    // addAnchor.appendChild(addImg);
+    // addSpan.innerHTML = name;
+    // addLi.appendChild(addAnchor);
+    // addLi.appendChild(addSpan);
+    var targetUl = page[indicator_num - 1].querySelector('ul');
+    const customElement = `
+        <li>
+            <a>
+                <img src="${defaultFaviconPath}" onerror="this.onerror=null;this.src='${faviconPathWhenError}'">
+                <span>${name}</span>
+            </a>
+        </li>`;
 
-    addImg.setAttribute('src', defaultFavicon);
-    // addImg.setAttribute('onError', src.concat(getIcon).concat(src2));
-    addImg.setAttribute('onError', `this.src='${getIcon}'`);
-
-
-    addAnchor.appendChild(addImg);
-    addSpan.innerHTML = name;
-    addLi.appendChild(addAnchor);
-    addLi.appendChild(addSpan);
-    var targetUl = page[indicator_num - 1].querySelector('ul')
-    console.log(targetUl);
-    targetUl.appendChild(addLi);
+    // targetUl.appendChild(addLi);
 
     document.querySelector('#url').value = '';
     document.querySelector('#name').value = '';
-
-return false;
-// });
 };
 
-close.addEventListener('click', function(){
+myForm.addEventListener('submit', addBookmark);
+
+close.addEventListener('click', function () {
     document.querySelector('#url').value = '';
     document.querySelector('#name').value = '';
 });

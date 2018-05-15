@@ -179,15 +179,14 @@ ul.icons > li >a {
 }
 
 
-
 /*modal*/
-.panel {
+.sign {
 	background-color: #444;
 	height: 34px;
 	padding: 10px;
 	text-align: center;
 }
-.panel a#addBtn{
+.sign a#addBtn, .sign a#login_pop, .sign a#join_pop{
 	border: 2px solid #aaa;
 	color: #fff;
 	display: block;
@@ -207,7 +206,36 @@ ul.icons > li >a {
 	border-radius: 10px;
 	/*font-family:'dotum';*/
 }
-a#addBtn:hover{
+
+
+/*modal*/
+.panel {
+	background-color: #444;
+	height: 34px;
+	padding: 10px;
+	text-align: center;
+}
+.panel a#addBtn, .panel a#login_pop, .panel a#join_pop{
+	border: 2px solid #aaa;
+	color: #fff;
+	display: block;
+	/*float: left;*/
+	text-align: center;
+	width: 200px;
+
+	margin: auto;
+	padding: 5px 10px;
+	text-decoration: none;
+	text-shadow: 1px 1px #000;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	/*font-family:'dotum';*/
+}
+a#addBtn:hover,a#login_pop:hover, a#join_pop:hover{
 
 	border-color: #eee;
 }
@@ -310,7 +338,7 @@ a#addBtn:hover{
 	text-align: left;
 	width: 50px;
 }
-.popup input[type="text"] {
+.popup input[type="text"],.popup input[type="password"] {
 	font-size: 15px;
 	width: 250px;
 	border: 1px solid;
@@ -324,7 +352,7 @@ a#addBtn:hover{
 	-o-border-radius: 5px;
 	border-radius: 5px;
 }
-.popup input[type="text"]:hover {
+.popup input[type="text"]:hover,.popup input[type="password"]:hover {
 	border-color: #555 #888 #888;
 }
 #save{
