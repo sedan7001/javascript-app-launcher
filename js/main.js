@@ -17,8 +17,7 @@ var yDeg = 0,
 
 var hammer = new Hammer(wrapper);
 
-// 페이지 초기화
-function init_page() {
+init_page = () => {
     w = page[0].offsetWidth;
 
     // 3D page 4면체 위치 정의
@@ -29,10 +28,10 @@ function init_page() {
 
     // page wrapper 정면으로 초기화
     wrapper.style.transform = 'translateZ(' + (-w / 2) + 'px) rotateY(' + yDeg + 'deg)';
-}
+};
 
 // 인디케이터 초기화
-function init_indicator() {
+init_indicator = () => {
     // 인디케이터 표시
     for (var i = 0; i < indicator_length; i++) {
         indicator.innerHTML += '<li>' + (i + 1) + '</li>';
@@ -40,7 +39,7 @@ function init_indicator() {
 
     indicator_li = indicator.querySelectorAll('li'); // 목록
     change_page(indicator_num);
-}
+};
 
 // 페이지 전환
 function change_page(inum) {
@@ -55,7 +54,6 @@ function change_page(inum) {
     }
     indicator_li[inum - 1].setAttribute('class', 'active');
     var pageNum = document.querySelectorAll('.pageNum');
-    console.log(pageNum);
     pageNum[indicator_num - 1].innerHTML = indicator_num;
 }
 
@@ -63,80 +61,86 @@ function change_page(inum) {
 init_page();
 init_indicator();
 
+({
+    // 여기에 설정 값(설정 상수)들을 정의할 수 있다.
+    maxwidth: 600,
+    maxheight: 400,
 
+    // 유틸리티 메서드 또한 정의할 수 있다.
+    gimmeMax: function () {
+        return this.maxwidth + ' * ' + this.maxheight;
+    },
+    startsWith: () => {
+        if (typeof String.prototype.startsWith != 'function') {
+            String.prototype.startsWith = function (str) {
+                return this.toLowerCase().slice(0, str.length) == str;
+            };
+        }
+    },
+
+
+    // 초기화
+    init: function () {
+        this.startsWith();
+        // 더 많은 초기화 작업들을 작성할 수 있다.
+    }
+}).init();
 /* ------------------- 이벤트 리스너 ------------------------------ */
-for (var i = 0; i < indicator_li.length; i++) {
-    indicator_li[i].addEventListener('click', function () {
+for (let item of indicator_li) {
+    item.addEventListener('click', function(){
         indicator_num = parseInt(this.innerText);
         change_page(indicator_num);
     });
 }
 
-const getElements =()=>{
-    const _url = document.querySelector('#url');
-    const _name = document.querySelector('#name');
+const clearInputElement = (ele) => {
+    for(let item of document.querySelectorAll(`${ele}`)){
+        item.value = '';
 
-    return {
-        url : _url.value,
-        name : _name.value,
-        clearInputElement : ()=>{
-            _url.value = '';
-            _name.value = '';
-        }
     }
 };
 
+
 const addBookmark = (e) => {
     e.preventDefault();
-
-    // let url = document.querySelector('#url').value,
-    //     name = document.querySelector('#name').value;
-
-    // var addLi = document.createElement('li');
-    // var addAnchor = document.createElement('a');
-    // var addImg = document.createElement('img');
-    // var addSpan = document.createElement('span');
-
-    if (typeof String.prototype.startsWith != 'function') {
-        String.prototype.startsWith = function (str) {
-            return this.toLowerCase().slice(0, str.length) == str;
+    const elements = (() => {
+        let _url = document.querySelector('#url').value,
+            _name = document.querySelector('#name').value;
+        const _getUrl = ()=>{
+            return _url.startsWith('http') ? _url :  `http://${_url}`
         };
-    }
-    if (!url.startsWith('http')) {
-        url = 'http://' + url;
-    }
-    addAnchor.setAttribute('href', url);
+        const _clearInputElement = () => {
+            document.querySelector('#url').value = '';
+            document.querySelector('#name').value = '';
+        };
+        return {
+            url: _getUrl(),
+            name: _name,
+            clearInputElement: _clearInputElement(),
+            defaultFaviconPath: `${_getUrl()}/favicon.ico`,
+            faviconPathWhenError: `http://grabicon.com/${_getUrl()}`
+        }
+    })();
 
-    var defaultFaviconPath = url + "/favicon.ico";
-    var faviconPathWhenError = "http://grabicon.com/" + url;
+    let targetUl = page[indicator_num - 1].querySelector('ul');
 
-    // addImg.setAttribute('src', defaultFaviconPath);
-    // addImg.setAttribute('onError', `this.onerror=null;this.src='${faviconPathWhenError}'`);
-    //
-    // addAnchor.appendChild(addImg);
-    // addSpan.innerHTML = name;
-    // addLi.appendChild(addAnchor);
-    // addLi.appendChild(addSpan);
-    var targetUl = page[indicator_num - 1].querySelector('ul');
-    const customElement = `
+    const pushIcon = ()=>{
+        targetUl.insertAdjacentHTML("beforeend", `
         <li>
-            <a>
-                <img src="${defaultFaviconPath}" onerror="this.onerror=null;this.src='${faviconPathWhenError}'">
-                <span>${name}</span>
+            <a href="${elements.url}">
+                <img src="${elements.defaultFaviconPath}" onError="this.onerror=null;this.src='${elements.faviconPathWhenError}'">
             </a>
-        </li>`;
-
-    // targetUl.appendChild(addLi);
-
-    document.querySelector('#url').value = '';
-    document.querySelector('#name').value = '';
+            <span>${elements.name}</span>
+        </li>`);
+        location.href="#close";
+    }
+    return pushIcon();
 };
 
 myForm.addEventListener('submit', addBookmark);
 
-close.addEventListener('click', function () {
-    document.querySelector('#url').value = '';
-    document.querySelector('#name').value = '';
+close.addEventListener('click',  function(){
+    clearInputElement('.inputToPush');
 });
 
 // 터치 swipe left
@@ -163,4 +167,4 @@ hammer.on('swiperight', function (e) {
 // 창크기 변경시 페이지 초기화
 window.onresize = function () {
     init_page();
-}
+};
